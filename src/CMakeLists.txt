@@ -1,0 +1,5 @@
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+add_executable(invoice invoice.cpp)
+target_link_libraries(invoice Qt6::Core Qt6::Gui Qt6::Widgets)
+install(TARGETS invoice DESTINATION bin)
