@@ -17,7 +17,7 @@ public:
 
 int main(int argc, char **argv) {
 	QApplication app(argc, argv);
-	QPdfWriter pw("test.pdf");
+	QPdfWriter pw("invoice.pdf");
 	pw.setPageLayout(QPageLayout(QPageSize(QPageSize::A4), QPageLayout::Portrait, QMarginsF(25, 10, 25, 10), QPageLayout::Millimeter));
 	//pw.newPage();
 	QPainter p(&pw);
@@ -40,23 +40,23 @@ int main(int argc, char **argv) {
 			"VAT ID: CHE-159.312.069-MWST\n");
 
 	QString const recipient = QStringLiteral(
-			"Manning GmbH\n"
-			"Hohenzollernstrasse 60\n"
-			"80801 München\n"
-			"Deutschland\n"
-			"MWST-Nr. DE 813 252 387\n"
+			"European Recruitment Ltd\n"
+			"39 Upper Gardner Street\n"
+			"Brighton, BNI 4AN\n"
+			"United Kingdom\n"
+			"VAT ID: 984125308\n"
 			);
 
 	QString const company = QStringLiteral("LinDev \u2022 Bifang 18 \u2022 8757 Filzbach \u2022 Switzerland");
 
-	QString const invoiceno = QStringLiteral("20210402");
+	QString const invoiceno = QStringLiteral("20220201");
 
 	QString const footer = QStringLiteral("Unless agreed upon otherwise in writing, this invoice is to be paid in full by wire transfer to the account given below within 30 days.\nThank you for your business!");
 
 	QString const bankInfo = QStringLiteral("LinDev Bernhard Rosenkränzer \u2022 IBAN CH30 8080 8003 8782 4289 4 \u2022 Raiffeisenbank Zug \u2022 SWIFT-BIC: RAIFCH22 \u2022 Clearing number: 80808");
 
 	QList<Item> items{
-		Item(176, "Hours of work as per supplied timesheet\nPrincipal Technologist, Huawei", 150)
+		Item(168, "Hours of work as per supplied timesheet\nPrincipal Open Source Architect, Huawei", 150)
 	};
 
 	QString const currency = QStringLiteral("€");
@@ -85,7 +85,7 @@ int main(int argc, char **argv) {
 
 	p.drawText(QRectF(0, 3700, 8000, 400), QString(
 				"Invoice for SERVICES\n"
-				"Period of invoicing: 2021-04-01 - 2021-04-30"));
+				"Period of invoicing: 2021-11-18 - 2021-11-30"));
 
 	pw.setTitle(QStringLiteral("LinDev - invoice #") + invoiceno);
 	int const startY = 4100;
@@ -97,7 +97,7 @@ int main(int argc, char **argv) {
 	p.drawText(QRectF(6500, y, 500, 400), QStringLiteral("per Unit"));
 	p.drawText(QRectF(7500, y, 500, 400), QStringLiteral("Price"));
 	y += 200;
-	double total;
+	double total = 0.0;
 	for(auto const &item: items) {
 		p.drawText(QRectF(0, y, 300, 400), QString::number(i++));
 		p.drawText(QRectF(300, y, 700, 400), QString::number(item.quantity));
